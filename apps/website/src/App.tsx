@@ -97,7 +97,7 @@ function App() {
       {/* Navbar */}
       <nav className="bg-[#111111] flex items-center justify-between px-[120px] py-5">
         <div className="flex items-center gap-3">
-          <img src="/z7nvw.png" alt="AGHub" className="h-7 w-7" />
+          <img src="/logo.png" alt="AGHub" className="h-7 w-7" />
           <span className="text-white text-xl italic font-normal font-['Instrument_Serif',serif]">
             aghub
           </span>
@@ -224,7 +224,7 @@ function App() {
           {/* Brand Column */}
           <div className="w-[280px] flex flex-col gap-4 shrink-0">
             <div className="flex items-center gap-3">
-              <img src="/z7nvw.png" alt="AGHub" className="h-7 w-7" />
+              <img src="/logo.png" alt="AGHub" className="h-7 w-7" />
               <span className="text-white text-[28px] font-normal font-['Instrument_Serif',serif]">
                 aghub
               </span>
