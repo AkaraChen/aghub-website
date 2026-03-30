@@ -103,7 +103,7 @@ function FeatureSection({
 
 const navLinks = [
   { label: "FEATURES", href: "#features" },
-  { label: "DOCS", href: "https://github.com/AkaraChen/aghub#readme" },
+  { label: "DOCS", href: "https://docs.aghub.akr.moe" },
   { label: "GITHUB", href: "https://github.com/AkaraChen/aghub" },
 ];
 
@@ -340,7 +340,7 @@ function App() {
               title="RESOURCES"
               links={["Documentation", "GitHub", "Releases"]}
               hrefs={[
-                "https://github.com/AkaraChen/aghub#readme",
+                "https://docs.aghub.akr.moe",
                 "https://github.com/AkaraChen/aghub",
                 "https://github.com/AkaraChen/aghub/releases",
               ]}
