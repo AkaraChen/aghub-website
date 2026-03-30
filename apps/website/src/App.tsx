@@ -339,24 +339,17 @@ function App() {
             />
             <FooterColumn
               title="RESOURCES"
-              links={["Documentation", "GitHub", "Releases", "Changelog"]}
+              links={["Documentation", "GitHub", "Releases"]}
               hrefs={[
                 "https://github.com/AkaraChen/aghub#readme",
                 "https://github.com/AkaraChen/aghub",
                 "https://github.com/AkaraChen/aghub/releases",
-                "https://github.com/AkaraChen/aghub/blob/main/CHANGELOG.md",
               ]}
             />
             <FooterColumn
               title="COMMUNITY"
-              links={[
-                "Twitter / X",
-                "Discord",
-                "GitHub Issues",
-                "Contributing",
-              ]}
+              links={["Discord", "GitHub Issues", "Contributing"]}
               hrefs={[
-                "https://twitter.com/AkaraChen",
                 "#",
                 "https://github.com/AkaraChen/aghub/issues",
                 "https://github.com/AkaraChen/aghub/blob/main/CONTRIBUTING.md",
