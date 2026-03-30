@@ -104,7 +104,6 @@ function FeatureSection({
 const navLinks = [
   { label: "FEATURES", href: "#features" },
   { label: "DOCS", href: "https://github.com/AkaraChen/aghub#readme" },
-  { label: "SKILLS", href: "https://skills.sh" },
   { label: "GITHUB", href: "https://github.com/AkaraChen/aghub" },
 ];
 
