@@ -1,0 +1,17 @@
+[build]
+# Base directory for the build (website app in monorepo)
+base = "apps/website"
+# Build command
+command = "pnpm run build"
+# Publish from the dist directory (relative to base)
+publish = "dist"
+
+[build.environment]
+# Specify Node.js version
+NODE_VERSION = "22"
+
+# Redirect all requests to index.html for SPA routing
+[[redirects]]
+from = "/*"
+to = "/index.html"
+status = 200
