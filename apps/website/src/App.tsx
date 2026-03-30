@@ -30,6 +30,7 @@ function FeatureSection({
   bullets,
   imageSide,
   imageSrc,
+  customVisual,
 }: {
   label: string;
   title: string;
@@ -37,6 +38,7 @@ function FeatureSection({
   bullets: string[];
   imageSide: "left" | "right";
   imageSrc?: string;
+  customVisual?: React.ReactNode;
 }) {
   const { ref, inView } = useInView();
 
@@ -65,13 +67,11 @@ function FeatureSection({
     </div>
   );
 
-  const imagePlaceholder = imageSrc ? (
+  const imagePlaceholder = customVisual ? (
+    <div className="flex-1 flex items-center justify-center">{customVisual}</div>
+  ) : imageSrc ? (
     <div className="flex-1 flex items-center justify-center">
-      <img
-        src={imageSrc}
-        alt={`${label} screenshot`}
-        className="w-full h-auto"
-      />
+      <img src={imageSrc} alt={`${label} screenshot`} className="w-full h-auto drop-shadow-xl" />
     </div>
   ) : (
     <div className="flex-1 bg-[#E7E8E5] border border-[#CBCCC9] rounded-2xl h-[240px] lg:h-[360px] flex items-center justify-center">
@@ -100,6 +100,33 @@ function FeatureSection({
     </div>
   );
 }
+
+const PlatformScreenshots = () => {
+  return (
+    <div className="relative w-full aspect-[4/3] flex items-center justify-center lg:my-0 lg:-ml-6">
+      {/* Mac (Back layer) - Since the source image has baked-in padding and shadows on a white bg,
+          simply applying mix-blend-multiply makes the white perfectly transparent while preserving the native macOS shadow. */}
+      <div className="absolute top-0 left-[-5%] w-[95%] z-10 brightness-[0.85] mix-blend-multiply pointer-events-none">
+        <img
+          src="/skill_screenshot.png"
+          alt="macOS screenshot"
+          className="w-full h-auto object-contain"
+        />
+      </div>
+
+      {/* Windows (Front layer) - Raw rectangle Needs CSS styling to simulate a window */}
+      <div className="absolute top-[32%] left-[15%] w-[85%] rounded-[14px] shadow-[0_30px_60px_-10px_rgba(0,0,0,0.5)] border border-white/10 z-20 overflow-hidden bg-[#111]">
+        <div className="relative w-full pb-[64%] h-0 overflow-hidden rounded-[14px] bg-[#111]">
+          <img
+            src="/windows_screenshot.png"
+            alt="Windows screenshot"
+            className="absolute top-0 left-0 w-full h-[105%] object-cover object-top"
+          />
+        </div>
+      </div>
+    </div>
+  );
+};
 
 const navLinks = [
   { label: "FEATURES", href: "#features" },
@@ -265,6 +292,7 @@ function App() {
             "Lightweight — no bundled Chromium",
           ]}
           imageSide="left"
+          customVisual={<PlatformScreenshots />}
         />
       </section>
 
