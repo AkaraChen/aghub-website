@@ -164,7 +164,7 @@ function App() {
             </a>
           ))}
           <a
-            href="https://github.com/AkaraChen/aghub/releases"
+            href="https://github.com/AkaraChen/aghub?tab=readme-ov-file#download"
             className="text-white text-xs font-semibold tracking-[1px] border border-[#FF8400] px-4 py-2 rounded-full hover:bg-[#FF8400]/10 transition-colors"
           >
             DOWNLOAD
@@ -203,7 +203,7 @@ function App() {
             </a>
           ))}
           <a
-            href="https://github.com/AkaraChen/aghub/releases"
+            href="https://github.com/AkaraChen/aghub?tab=readme-ov-file#download"
             className="self-start text-white text-xs font-semibold tracking-[1px] border border-[#FF8400] px-4 py-2 rounded-full hover:bg-[#FF8400]/10 transition-colors"
             onClick={() => setMenuOpen(false)}
           >
@@ -229,7 +229,7 @@ function App() {
             single desktop app built with Tauri 2.
           </p>
           <a
-            href="https://github.com/AkaraChen/aghub/releases"
+            href="https://github.com/AkaraChen/aghub?tab=readme-ov-file#download"
             className="self-start bg-[#FF8400] text-[#111111] text-xs font-semibold tracking-[1px] px-6 py-3 rounded-full hover:bg-[#FF8400]/90 transition-colors"
           >
             GET STARTED
@@ -370,7 +370,7 @@ function App() {
               hrefs={[
                 "https://docs.aghub.akr.moe",
                 "https://github.com/AkaraChen/aghub",
-                "https://github.com/AkaraChen/aghub/releases",
+                "https://github.com/AkaraChen/aghub?tab=readme-ov-file#download",
               ]}
             />
             <FooterColumn
