@@ -62,7 +62,7 @@ function FeatureSection({
 
   const imagePlaceholder = imageSrc ? (
     <div className="flex-1 flex items-center justify-center">
-      <img src={imageSrc} alt={`${label} screenshot`} className="w-full h-auto rounded-xl shadow-2xl border border-[#CBCCC9]" />
+      <img src={imageSrc} alt={`${label} screenshot`} className="w-full h-auto" />
     </div>
   ) : (
     <div className="flex-1 bg-[#E7E8E5] border border-[#CBCCC9] rounded-2xl h-[360px] flex items-center justify-center">
@@ -149,7 +149,9 @@ function App() {
             GET STARTED
           </a>
         </div>
-        <div className="absolute w-[400px] h-[400px] rounded-full bg-[#FF8400] opacity-15 top-[80px] left-[750px]" />
+        <div className="absolute top-1/2 -translate-y-1/2 right-[120px] w-[400px] h-[400px] pointer-events-none drop-shadow-2xl rotate-12 transform-gpu">
+          <img src="/logo.png" alt="AGHub Logo" className="w-full h-full object-contain" />
+        </div>
       </section>
 
       {/* Logo Bar */}
