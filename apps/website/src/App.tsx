@@ -29,12 +29,14 @@ function FeatureSection({
   description,
   bullets,
   imageSide,
+  imageSrc,
 }: {
   label: string;
   title: string;
   description: string;
   bullets: string[];
   imageSide: "left" | "right";
+  imageSrc?: string;
 }) {
   const { ref, inView } = useInView();
 
@@ -58,7 +60,11 @@ function FeatureSection({
     </div>
   );
 
-  const imagePlaceholder = (
+  const imagePlaceholder = imageSrc ? (
+    <div className="flex-1 flex items-center justify-center">
+      <img src={imageSrc} alt={`${label} screenshot`} className="w-full h-auto rounded-xl shadow-2xl border border-[#CBCCC9]" />
+    </div>
+  ) : (
     <div className="flex-1 bg-[#E7E8E5] border border-[#CBCCC9] rounded-2xl h-[360px] flex items-center justify-center">
       <span className="text-[#666666] text-sm tracking-[2px]">SCREENSHOT</span>
     </div>
@@ -167,6 +173,7 @@ function App() {
             "View and audit servers across all 22+ agents at once",
           ]}
           imageSide="right"
+          imageSrc="/mcp_screenshot.png"
         />
         <FeatureSection
           label="PORTABLE SKILLS"
@@ -178,6 +185,7 @@ function App() {
             "Integration with the skills.sh marketplace",
           ]}
           imageSide="left"
+          imageSrc="/skill_screenshot.png"
         />
         <FeatureSection
           label="FLEXIBLE SCOPING"
@@ -189,6 +197,7 @@ function App() {
             "Complete audit trails for every resource",
           ]}
           imageSide="right"
+          imageSrc="/market_screenshot.png"
         />
         <FeatureSection
           label="CROSS-PLATFORM"
