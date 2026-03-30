@@ -48,10 +48,15 @@ function FeatureSection({
       <h3 className="text-2xl lg:text-[36px] font-normal font-['Instrument_Serif',serif] text-[#111111] m-0 leading-tight">
         {title}
       </h3>
-      <p className="text-[#666666] text-base leading-[1.6] m-0">{description}</p>
+      <p className="text-[#666666] text-base leading-[1.6] m-0">
+        {description}
+      </p>
       <ul className="list-none p-0 m-0 flex flex-col gap-3">
         {bullets.map((b) => (
-          <li key={b} className="flex items-center gap-3 text-[#111111] text-sm">
+          <li
+            key={b}
+            className="flex items-center gap-3 text-[#111111] text-sm"
+          >
             <span className="w-1.5 h-1.5 rounded-full bg-[#FF8400] shrink-0" />
             {b}
           </li>
@@ -62,7 +67,11 @@ function FeatureSection({
 
   const imagePlaceholder = imageSrc ? (
     <div className="flex-1 flex items-center justify-center">
-      <img src={imageSrc} alt={`${label} screenshot`} className="w-full h-auto" />
+      <img
+        src={imageSrc}
+        alt={`${label} screenshot`}
+        className="w-full h-auto"
+      />
     </div>
   ) : (
     <div className="flex-1 bg-[#E7E8E5] border border-[#CBCCC9] rounded-2xl h-[240px] lg:h-[360px] flex items-center justify-center">
@@ -189,8 +198,9 @@ function App() {
             every agent.
           </h1>
           <p className="text-[#B8B9B6] text-base leading-[1.5] max-w-[450px] m-0">
-            Unified configuration management for 22+ AI coding assistants. Manage MCP servers,
-            portable skills, and project configs from a single desktop app built with Tauri 2.
+            Unified configuration management for 22+ AI coding assistants.
+            Manage MCP servers, portable skills, and project configs from a
+            single desktop app built with Tauri 2.
           </p>
           <a
             href="https://github.com/AkaraChen/aghub/releases"
@@ -200,7 +210,11 @@ function App() {
           </a>
         </div>
         <div className="hidden lg:block absolute top-1/2 -translate-y-1/2 right-[120px] w-[400px] h-[400px] pointer-events-none drop-shadow-2xl rotate-12 transform-gpu">
-          <img src="/logo.png" alt="AGHub Logo" className="w-full h-full object-contain" />
+          <img
+            src="/logo.png"
+            alt="AGHub Logo"
+            className="w-full h-full object-contain"
+          />
         </div>
       </section>
 
@@ -240,7 +254,7 @@ function App() {
             "Complete audit trails for every resource",
           ]}
           imageSide="right"
-          imageSrc="/market_screenshot.png"
+          imageSrc="/project_screenshot.png"
         />
         <FeatureSection
           label="CROSS-PLATFORM"
@@ -273,7 +287,11 @@ function App() {
                 className="flex flex-col items-center gap-3 shrink-0 w-[100px]"
               >
                 <div className="w-16 h-16 rounded-2xl bg-white border border-[#CBCCC9] flex items-center justify-center p-3 hover:border-[#FF8400]/40 transition-colors">
-                  <img src={agent.logo} alt={agent.name} className="w-full h-full object-contain" />
+                  <img
+                    src={agent.logo}
+                    alt={agent.name}
+                    className="w-full h-full object-contain"
+                  />
                 </div>
                 <span className="text-[#111111] text-xs font-medium text-center whitespace-nowrap">
                   {agent.name}
@@ -306,7 +324,12 @@ function App() {
           <div className="grid grid-cols-2 lg:grid-cols-3 gap-8 lg:flex lg:flex-1 lg:justify-end lg:gap-12">
             <FooterColumn
               title="FEATURES"
-              links={["MCP Servers", "Skills Registry", "Project Config", "CLI Integration"]}
+              links={[
+                "MCP Servers",
+                "Skills Registry",
+                "Project Config",
+                "CLI Integration",
+              ]}
               hrefs={[
                 "#features",
                 "https://skills.sh",
@@ -326,7 +349,12 @@ function App() {
             />
             <FooterColumn
               title="COMMUNITY"
-              links={["Twitter / X", "Discord", "GitHub Issues", "Contributing"]}
+              links={[
+                "Twitter / X",
+                "Discord",
+                "GitHub Issues",
+                "Contributing",
+              ]}
               hrefs={[
                 "https://twitter.com/AkaraChen",
                 "#",
@@ -359,7 +387,9 @@ function FooterColumn({
 }) {
   return (
     <div className="flex flex-col gap-4">
-      <span className="text-[#666666] text-xs font-semibold tracking-[2px]">{title}</span>
+      <span className="text-[#666666] text-xs font-semibold tracking-[2px]">
+        {title}
+      </span>
       {links.map((link, i) => (
         <a
           key={link}
