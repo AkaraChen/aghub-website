@@ -103,21 +103,36 @@ function App() {
       {/* Navbar */}
       <nav className="bg-[#111111] flex items-center justify-between px-[120px] py-5">
         <div className="flex items-center gap-3">
-          <img src="/logo.png" alt="AGHub" className="h-7 w-7" />
+          <img src="/logo.png" alt="AGHub logo" className="h-7 w-7" />
           <span className="text-white text-xl italic font-normal font-['Instrument_Serif',serif]">
             aghub
           </span>
         </div>
         <div className="flex items-center gap-8">
-          {["FEATURES", "DOCS", "SKILLS", "GITHUB"].map((link) => (
-            <a
-              key={link}
-              href="#"
-              className="text-[#B8B9B6] text-xs font-medium tracking-[2px] hover:text-white transition-colors"
-            >
-              {link}
-            </a>
-          ))}
+          <a
+            href="#features"
+            className="text-[#B8B9B6] text-xs font-medium tracking-[2px] hover:text-white transition-colors"
+          >
+            FEATURES
+          </a>
+          <a
+            href="https://github.com/AkaraChen/aghub#readme"
+            className="text-[#B8B9B6] text-xs font-medium tracking-[2px] hover:text-white transition-colors"
+          >
+            DOCS
+          </a>
+          <a
+            href="https://skills.sh"
+            className="text-[#B8B9B6] text-xs font-medium tracking-[2px] hover:text-white transition-colors"
+          >
+            SKILLS
+          </a>
+          <a
+            href="https://github.com/AkaraChen/aghub"
+            className="text-[#B8B9B6] text-xs font-medium tracking-[2px] hover:text-white transition-colors"
+          >
+            GITHUB
+          </a>
         </div>
         <a
           href="#"
@@ -164,7 +179,7 @@ function App() {
       </section>
 
       {/* Product Features */}
-      <section className="px-[120px] bg-[#F2F3F0]">
+      <section id="features" className="px-[120px] bg-[#F2F3F0]">
         <FeatureSection
           label="UNIFIED MCP MANAGEMENT"
           title="One config for every agent."
@@ -235,7 +250,7 @@ function App() {
           {/* Brand Column */}
           <div className="w-[280px] flex flex-col gap-4 shrink-0">
             <div className="flex items-center gap-3">
-              <img src="/logo.png" alt="AGHub" className="h-7 w-7" />
+              <img src="/logo.png" alt="AGHub logo" className="h-7 w-7" />
               <span className="text-white text-[28px] font-normal font-['Instrument_Serif',serif]">
                 aghub
               </span>
@@ -252,14 +267,32 @@ function App() {
             <FooterColumn
               title="FEATURES"
               links={["MCP Servers", "Skills Registry", "Project Config", "CLI Integration"]}
+              hrefs={[
+                "#features",
+                "https://skills.sh",
+                "#features",
+                "https://github.com/AkaraChen/aghub#cli-usage",
+              ]}
             />
             <FooterColumn
               title="RESOURCES"
               links={["Documentation", "GitHub", "Releases", "Changelog"]}
+              hrefs={[
+                "https://github.com/AkaraChen/aghub#readme",
+                "https://github.com/AkaraChen/aghub",
+                "https://github.com/AkaraChen/aghub/releases",
+                "https://github.com/AkaraChen/aghub/blob/main/CHANGELOG.md",
+              ]}
             />
             <FooterColumn
               title="COMMUNITY"
               links={["Twitter / X", "Discord", "GitHub Issues", "Contributing"]}
+              hrefs={[
+                "https://twitter.com/AkaraChen",
+                "#",
+                "https://github.com/AkaraChen/aghub/issues",
+                "https://github.com/AkaraChen/aghub/blob/main/CONTRIBUTING.md",
+              ]}
             />
           </div>
         </div>
@@ -326,14 +359,22 @@ function AgentCard({
   );
 }
 
-function FooterColumn({ title, links }: { title: string; links: string[] }) {
+function FooterColumn({
+  title,
+  links,
+  hrefs,
+}: {
+  title: string;
+  links: string[];
+  hrefs: string[];
+}) {
   return (
     <div className="flex flex-col gap-4">
       <span className="text-[#666666] text-xs font-semibold tracking-[2px]">{title}</span>
-      {links.map((link) => (
+      {links.map((link, i) => (
         <a
           key={link}
-          href="#"
+          href={hrefs[i]}
           className="text-[#B8B9B6] text-sm hover:text-white transition-colors"
         >
           {link}
