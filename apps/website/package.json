@@ -14,9 +14,12 @@
     "@tailwindcss/postcss": "catalog:",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
+    "i18next": "catalog:",
     "next": "catalog:",
+    "next-i18next": "catalog:",
     "react": "catalog:",
     "react-dom": "catalog:",
+    "react-i18next": "catalog:",
     "tailwindcss": "catalog:"
   },
   "devDependencies": {

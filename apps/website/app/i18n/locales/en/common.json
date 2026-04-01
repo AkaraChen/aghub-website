@@ -1,0 +1,111 @@
+{
+  "meta": {
+    "title": "aghub - One hub for every AI coding agent",
+    "description": "One hub for every AI coding agent. Unified configuration management for 22+ AI coding assistants. Manage MCP servers, portable skills, and project configs from a single desktop app.",
+    "keywords": [
+      "MCP",
+      "AI coding agent",
+      "Claude Code",
+      "Cursor",
+      "Windsurf",
+      "AI assistant configuration",
+      "MCP server management",
+      "skills registry"
+    ],
+    "openGraphTitle": "AGHub - Unified MCP & Skills Management for AI Coding Agents",
+    "twitterTitle": "AGHub - Unified MCP & Skills Management for AI Coding Agents",
+    "locale": "en_US"
+  },
+  "structuredData": {
+    "description": "Unified configuration management for 22+ AI coding assistants. Manage MCP servers, portable skills, and project configs from a single desktop app."
+  },
+  "topBar": {
+    "announcement": "AGHUB {{version}} IS NOW AVAILABLE - ONE HUB FOR EVERY AI CODING AGENT"
+  },
+  "nav": {
+    "features": "FEATURES",
+    "docs": "DOCS",
+    "github": "GITHUB",
+    "download": "DOWNLOAD",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu"
+  },
+  "hero": {
+    "eyebrow": "SKILL & MCP MANAGEMENT",
+    "titleLine1": "One hub,",
+    "titleLine2": "every agent.",
+    "description": "Unified configuration management for 22+ AI coding assistants. Manage MCP servers, portable skills, and project configs from a single desktop app built with Tauri 2."
+  },
+  "downloads": {
+    "mac": "DOWNLOAD FOR MAC",
+    "windows": "DOWNLOAD FOR WINDOWS",
+    "linux": "DOWNLOAD FOR LINUX",
+    "default": "DOWNLOAD"
+  },
+  "features": {
+    "mcp": {
+      "label": "UNIFIED MCP MANAGEMENT",
+      "title": "One config for every agent.",
+      "description": "Deploy MCP server configurations across all your AI coding agents from a single interface. No more editing JSON files for each tool separately.",
+      "bullets": [
+        "Supports Stdio, SSE, and StreamableHttp transports",
+        "Toggle servers on/off without deleting them",
+        "View and audit servers across all 22+ agents at once"
+      ]
+    },
+    "skills": {
+      "label": "PORTABLE SKILLS",
+      "title": "Share skills across agents.",
+      "description": "Import .skill packages that work everywhere. Skills are verified, tracked, and portable - install once, use in any supported agent.",
+      "bullets": [
+        "SKILL.md frontmatter for rich metadata",
+        "SHA-256 verification and source tracking",
+        "Integration with the skills.sh marketplace"
+      ]
+    },
+    "scoping": {
+      "label": "FLEXIBLE SCOPING",
+      "title": "Global, project, or both.",
+      "description": "Set configurations at any level. Global defaults apply everywhere, project overrides stay local, and merged views show the full picture.",
+      "bullets": [
+        "Global, project, or merged configuration views",
+        "Per-agent filtering for precise control",
+        "Complete audit trails for every resource"
+      ]
+    },
+    "platform": {
+      "label": "CROSS-PLATFORM",
+      "title": "Native on every desktop.",
+      "description": "Built with Tauri 2 for native performance and a small footprint. Runs on Windows, macOS, and Linux without Electron's overhead.",
+      "bullets": [
+        "Windows 10+, macOS 12+, major Linux distros",
+        "Built with Rust and TypeScript",
+        "Lightweight - no bundled Chromium"
+      ]
+    }
+  },
+  "supportedAgents": {
+    "ariaLabel": "Supported agents carousel",
+    "title": "Supported Agents",
+    "count": "{{count}} agents and counting. One config to rule them all."
+  },
+  "footer": {
+    "tagline": "One hub for every AI coding agent. Unified configuration for 22+ assistants.",
+    "featuresTitle": "FEATURES",
+    "featuresLinks": ["MCP Servers", "Skills Registry", "Project Config", "CLI Integration"],
+    "resourcesTitle": "RESOURCES",
+    "resourcesLinks": ["Documentation", "GitHub", "Releases"],
+    "communityTitle": "COMMUNITY",
+    "communityLinks": ["Discord", "GitHub Issues", "Contributing"],
+    "copyright": "© 2025 AGHUB - MIT LICENSE",
+    "builtWith": "Built with Tauri 2"
+  },
+  "images": {
+    "featureScreenshotSuffix": "screenshot",
+    "placeholder": "SCREENSHOT",
+    "macScreenshotAlt": "macOS screenshot",
+    "windowsScreenshotAlt": "Windows screenshot",
+    "logoAlt": "AGHub logo",
+    "heroLogoAlt": "AGHub logo mark"
+  }
+}

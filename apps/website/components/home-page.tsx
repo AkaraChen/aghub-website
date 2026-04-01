@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
+import type { HomePageContent } from "../app/i18n/server";
 
 function useInView(threshold = 0.2) {
   const ref = useRef<HTMLDivElement>(null);
@@ -35,6 +36,7 @@ function FeatureSection({
   imageSide,
   imageSrc,
   customVisual,
+  screenshotSuffix,
 }: {
   label: string;
   title: string;
@@ -43,6 +45,7 @@ function FeatureSection({
   imageSide: "left" | "right";
   imageSrc?: string;
   customVisual?: ReactNode;
+  screenshotSuffix: string;
 }) {
   const { ref, inView } = useInView();
 
@@ -70,11 +73,15 @@ function FeatureSection({
     <div className="flex flex-1 items-center justify-center">{customVisual}</div>
   ) : imageSrc ? (
     <div className="flex flex-1 items-center justify-center">
-      <img src={imageSrc} alt={`${label} screenshot`} className="h-auto w-full drop-shadow-xl" />
+      <img
+        src={imageSrc}
+        alt={`${label} ${screenshotSuffix}`}
+        className="h-auto w-full drop-shadow-xl"
+      />
     </div>
   ) : (
     <div className="flex h-[240px] flex-1 items-center justify-center rounded-2xl border border-[#CBCCC9] bg-[#E7E8E5] lg:h-[360px]">
-      <span className="text-sm tracking-[2px] text-[#666666]">SCREENSHOT</span>
+      <span className="text-sm tracking-[2px] text-[#666666]">{screenshotSuffix}</span>
     </div>
   );
 
@@ -100,13 +107,19 @@ function FeatureSection({
   );
 }
 
-function PlatformScreenshots() {
+function PlatformScreenshots({
+  macScreenshotAlt,
+  windowsScreenshotAlt,
+}: {
+  macScreenshotAlt: string;
+  windowsScreenshotAlt: string;
+}) {
   return (
     <div className="relative flex w-full aspect-[4/3] items-center justify-center lg:-ml-6 lg:my-0">
       <div className="pointer-events-none absolute top-0 left-[-5%] z-10 w-[95%] brightness-[0.85] mix-blend-multiply">
         <img
           src="/skill_screenshot.png"
-          alt="macOS screenshot"
+          alt={macScreenshotAlt}
           className="h-auto w-full object-contain"
         />
       </div>
@@ -115,7 +128,7 @@ function PlatformScreenshots() {
         <div className="relative h-0 w-full overflow-hidden rounded-[14px] bg-[#111] pb-[64%]">
           <img
             src="/windows_screenshot.png"
-            alt="Windows screenshot"
+            alt={windowsScreenshotAlt}
             className="absolute top-0 left-0 h-[105%] w-full object-cover object-top"
           />
         </div>
@@ -125,6 +138,7 @@ function PlatformScreenshots() {
 }
 
 type Platform = "mac-arm" | "mac-intel" | "windows" | "linux" | "unknown";
+type DownloadLabels = HomePageContent["downloads"];
 
 function detectPlatform(): Platform {
   const userAgent = window.navigator.userAgent.toLowerCase();
@@ -135,19 +149,19 @@ function detectPlatform(): Platform {
   return "unknown";
 }
 
-const platformLabels: Record<Platform, string> = {
-  "mac-arm": "DOWNLOAD FOR MAC",
-  "mac-intel": "DOWNLOAD FOR MAC",
-  windows: "DOWNLOAD FOR WINDOWS",
-  linux: "DOWNLOAD FOR LINUX",
-  unknown: "DOWNLOAD",
+const platformLabels: Record<Platform, keyof DownloadLabels> = {
+  "mac-arm": "mac",
+  "mac-intel": "mac",
+  windows: "windows",
+  linux: "linux",
+  unknown: "default",
 };
 
-function useLatestRelease() {
+function useLatestRelease(downloads: DownloadLabels) {
   const [release, setRelease] = useState({
     url: "https://github.com/AkaraChen/aghub/releases/latest",
     version: "",
-    label: platformLabels.unknown,
+    label: downloads.default,
   });
 
   useEffect(() => {
@@ -171,25 +185,19 @@ function useLatestRelease() {
         setRelease({
           url: platformUrls[platform] ?? "https://github.com/AkaraChen/aghub/releases/latest",
           version: data.tag_name ?? "",
-          label: platformLabels[platform],
+          label: downloads[platformLabels[platform]],
         });
       })
       .catch(() => {
         setRelease((current) => ({
           ...current,
-          label: platformLabels[platform],
+          label: downloads[platformLabels[platform]],
         }));
       });
-  }, []);
+  }, [downloads]);
 
   return release;
 }
-
-const navLinks = [
-  { label: "FEATURES", href: "#features" },
-  { label: "DOCS", href: "https://docs.aghub.akr.moe" },
-  { label: "GITHUB", href: "https://github.com/AkaraChen/aghub" },
-];
 
 const agents: { name: string; logo: string }[] = [
   { name: "Claude Code", logo: "/agents/claude.svg" },
@@ -242,25 +250,32 @@ function FooterColumn({
   );
 }
 
-export default function HomePage() {
+export default function HomePage({ content }: { content: HomePageContent }) {
   const [menuOpen, setMenuOpen] = useState(false);
-  const { url: downloadUrl, label: downloadLabel, version } = useLatestRelease();
+  const { url: downloadUrl, label: downloadLabel, version } = useLatestRelease(content.downloads);
   const doubledAgents = useMemo(() => [...agents, ...agents], []);
+
+  useEffect(() => {
+    document.documentElement.lang = content.language;
+  }, [content.language]);
+
+  const announcement = content.announcementTemplate
+    .replace("{{version}}", version ? version.toUpperCase() : "")
+    .trim();
 
   return (
     <div className="font-sans-site flex min-h-screen flex-col bg-[#F2F3F0] text-base text-[#111111]">
       <div className="px-6 py-2 text-center text-[10px] font-medium tracking-[2px] text-[#B8B9B6] bg-[#0C0C0C] lg:px-[120px] lg:text-xs">
-        AGHUB {version ? version.toUpperCase() : ""} IS NOW AVAILABLE - ONE HUB FOR EVERY AI CODING
-        AGENT
+        {announcement}
       </div>
 
       <nav className="relative flex items-center justify-between bg-[#111111] px-6 py-4 lg:px-[120px] lg:py-5">
         <div className="flex items-center gap-3">
-          <img src="/logo.png" alt="AGHub logo" className="h-7 w-7" />
+          <img src="/logo.png" alt={content.images.logoAlt} className="h-7 w-7" />
           <span className="font-serif-brand text-xl italic font-normal text-white">aghub</span>
         </div>
         <div className="hidden items-center gap-8 lg:flex">
-          {navLinks.map((link) => (
+          {content.navLinks.map((link) => (
             <a
               key={link.label}
               href={link.href}
@@ -274,14 +289,14 @@ export default function HomePage() {
             href="https://github.com/AkaraChen/aghub?tab=readme-ov-file#download"
             className="rounded-full border border-[#FF8400] px-4 py-2 text-xs font-semibold tracking-[1px] text-white transition-colors hover:bg-[#FF8400]/10"
           >
-            DOWNLOAD
+            {content.navDownloadLabel}
           </a>
         </div>
         <button
           type="button"
           className="-mr-2 flex flex-col gap-1.5 p-2 lg:hidden"
           onClick={() => setMenuOpen((current) => !current)}
-          aria-label={menuOpen ? "Close menu" : "Open menu"}
+          aria-label={menuOpen ? content.menuLabels.close : content.menuLabels.open}
         >
           <span
             className={`block h-0.5 w-5 bg-white transition-all duration-200 ${
@@ -303,7 +318,7 @@ export default function HomePage() {
 
       {menuOpen && (
         <div className="flex flex-col gap-5 border-t border-[#333] bg-[#111111] px-6 py-6 lg:hidden">
-          {navLinks.map((link) => (
+          {content.navLinks.map((link) => (
             <a
               key={link.label}
               href={link.href}
@@ -318,7 +333,7 @@ export default function HomePage() {
             className="self-start rounded-full border border-[#FF8400] px-4 py-2 text-xs font-semibold tracking-[1px] text-white transition-colors hover:bg-[#FF8400]/10"
             onClick={() => setMenuOpen(false)}
           >
-            DOWNLOAD
+            {content.navDownloadLabel}
           </a>
         </div>
       )}
@@ -326,16 +341,15 @@ export default function HomePage() {
       <section className="relative flex min-h-[400px] flex-shrink-0 overflow-hidden bg-[#111111] lg:h-[640px]">
         <div className="relative z-10 flex flex-col gap-6 px-6 py-10 lg:px-[120px] lg:py-[60px]">
           <span className="self-start border border-[#FF8400]/30 px-4 py-1.5 text-xs font-medium tracking-[2px] text-[#FF8400]">
-            SKILL & MCP MANAGEMENT
+            {content.hero.eyebrow}
           </span>
           <h1 className="font-serif-brand m-0 text-[40px] leading-[0.95] font-normal text-white lg:text-[80px]">
-            One hub,
+            {content.hero.titleLine1}
             <br />
-            every agent.
+            {content.hero.titleLine2}
           </h1>
           <p className="m-0 max-w-[450px] text-base leading-[1.5] text-[#B8B9B6]">
-            Unified configuration management for 22+ AI coding assistants. Manage MCP servers,
-            portable skills, and project configs from a single desktop app built with Tauri 2.
+            {content.hero.description}
           </p>
           <a
             href={downloadUrl}
@@ -345,72 +359,48 @@ export default function HomePage() {
           </a>
         </div>
         <div className="pointer-events-none absolute top-1/2 right-[120px] hidden h-[400px] w-[400px] -translate-y-1/2 rotate-12 transform-gpu drop-shadow-2xl lg:block">
-          <img src="/logo.png" alt="AGHub Logo" className="h-full w-full object-contain" />
+          <img
+            src="/logo.png"
+            alt={content.images.heroLogoAlt}
+            className="h-full w-full object-contain"
+          />
         </div>
       </section>
 
       <section id="features" className="bg-[#F2F3F0] px-6 lg:px-[120px]">
-        <FeatureSection
-          label="UNIFIED MCP MANAGEMENT"
-          title="One config for every agent."
-          description="Deploy MCP server configurations across all your AI coding agents from a single interface. No more editing JSON files for each tool separately."
-          bullets={[
-            "Supports Stdio, SSE, and StreamableHttp transports",
-            "Toggle servers on/off without deleting them",
-            "View and audit servers across all 22+ agents at once",
-          ]}
-          imageSide="right"
-          imageSrc="/mcp_screenshot.png"
-        />
-        <FeatureSection
-          label="PORTABLE SKILLS"
-          title="Share skills across agents."
-          description="Import .skill packages that work everywhere. Skills are verified, tracked, and portable - install once, use in any supported agent."
-          bullets={[
-            "SKILL.md frontmatter for rich metadata",
-            "SHA-256 verification and source tracking",
-            "Integration with the skills.sh marketplace",
-          ]}
-          imageSide="left"
-          imageSrc="/skill_screenshot.png"
-        />
-        <FeatureSection
-          label="FLEXIBLE SCOPING"
-          title="Global, project, or both."
-          description="Set configurations at any level. Global defaults apply everywhere, project overrides stay local, and merged views show the full picture."
-          bullets={[
-            "Global, project, or merged configuration views",
-            "Per-agent filtering for precise control",
-            "Complete audit trails for every resource",
-          ]}
-          imageSide="right"
-          imageSrc="/project_screenshot.png"
-        />
-        <FeatureSection
-          label="CROSS-PLATFORM"
-          title="Native on every desktop."
-          description="Built with Tauri 2 for native performance and a small footprint. Runs on Windows, macOS, and Linux without Electron's overhead."
-          bullets={[
-            "Windows 10+, macOS 12+, major Linux distros",
-            "Built with Rust and TypeScript",
-            "Lightweight - no bundled Chromium",
-          ]}
-          imageSide="left"
-          customVisual={<PlatformScreenshots />}
-        />
+        {content.features.map((section) => (
+          <FeatureSection
+            key={section.label}
+            label={section.label}
+            title={section.title}
+            description={section.description}
+            bullets={section.bullets}
+            imageSide={section.imageSide}
+            imageSrc={section.imageSrc}
+            customVisual={
+              section.usePlatformVisual ? (
+                <PlatformScreenshots
+                  macScreenshotAlt={content.images.macScreenshotAlt}
+                  windowsScreenshotAlt={content.images.windowsScreenshotAlt}
+                />
+              ) : undefined
+            }
+            screenshotSuffix={content.images.featureScreenshotSuffix}
+          />
+        ))}
       </section>
 
       <section
         className="overflow-hidden bg-[#F2F3F0] py-12 lg:py-20"
         role="region"
-        aria-label="Supported agents carousel"
+        aria-label={content.supportedAgents.ariaLabel}
       >
         <div className="mb-10 px-6 lg:px-[120px]">
           <h2 className="font-serif-brand mb-4 text-[28px] font-normal text-[#111111] lg:text-[40px]">
-            Supported Agents
+            {content.supportedAgents.title}
           </h2>
           <p className="text-base text-[#666666]">
-            {agents.length} agents and counting. One config to rule them all.
+            {content.supportedAgents.countTemplate.replace("{{count}}", String(agents.length))}
           </p>
         </div>
         <div className="relative">
@@ -436,20 +426,18 @@ export default function HomePage() {
         <div className="mb-12 flex flex-col gap-10 lg:flex-row lg:gap-20">
           <div className="flex shrink-0 flex-col gap-4 lg:w-[280px]">
             <div className="flex items-center gap-3">
-              <img src="/logo.png" alt="AGHub logo" className="h-7 w-7" />
+              <img src="/logo.png" alt={content.images.logoAlt} className="h-7 w-7" />
               <span className="font-serif-brand text-[28px] font-normal text-white">aghub</span>
             </div>
             <p className="max-w-[260px] text-sm leading-[1.6] text-[#B8B9B6]">
-              One hub for every AI coding agent. Unified
-              <br />
-              configuration for 22+ assistants.
+              {content.footer.tagline}
             </p>
           </div>
 
           <div className="grid grid-cols-2 gap-8 lg:flex lg:flex-1 lg:justify-end lg:gap-12">
             <FooterColumn
-              title="FEATURES"
-              links={["MCP Servers", "Skills Registry", "Project Config", "CLI Integration"]}
+              title={content.footer.featuresTitle}
+              links={content.footer.featuresLinks}
               hrefs={[
                 "#features",
                 "https://skills.sh",
@@ -458,8 +446,8 @@ export default function HomePage() {
               ]}
             />
             <FooterColumn
-              title="RESOURCES"
-              links={["Documentation", "GitHub", "Releases"]}
+              title={content.footer.resourcesTitle}
+              links={content.footer.resourcesLinks}
               hrefs={[
                 "https://docs.aghub.akr.moe",
                 "https://github.com/AkaraChen/aghub",
@@ -467,8 +455,8 @@ export default function HomePage() {
               ]}
             />
             <FooterColumn
-              title="COMMUNITY"
-              links={["Discord", "GitHub Issues", "Contributing"]}
+              title={content.footer.communityTitle}
+              links={content.footer.communityLinks}
               hrefs={[
                 "#",
                 "https://github.com/AkaraChen/aghub/issues",
@@ -480,9 +468,9 @@ export default function HomePage() {
 
         <div className="flex items-center justify-between">
           <span className="text-xs tracking-[0.5px] text-[#666666]">
-            © 2025 AGHUB - MIT LICENSE
+            {content.footer.copyright}
           </span>
-          <span className="text-[11px] text-[#666666]">Built with Tauri 2</span>
+          <span className="text-[11px] text-[#666666]">{content.footer.builtWith}</span>
         </div>
       </footer>
     </div>

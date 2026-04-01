@@ -1,0 +1,111 @@
+{
+  "meta": {
+    "title": "aghub - 每个 AI 编程 Agent 的统一中枢",
+    "description": "一个面向所有 AI 编程助手的统一中枢。集中管理 22+ AI 编程助手的 MCP 服务器、便携技能和项目配置，一套桌面应用全部搞定。",
+    "keywords": [
+      "MCP",
+      "AI 编程 Agent",
+      "Claude Code",
+      "Cursor",
+      "Windsurf",
+      "AI 助手配置",
+      "MCP 服务器管理",
+      "技能市场"
+    ],
+    "openGraphTitle": "AGHub - 面向 AI 编程 Agent 的统一 MCP 与 Skills 管理",
+    "twitterTitle": "AGHub - 面向 AI 编程 Agent 的统一 MCP 与 Skills 管理",
+    "locale": "zh_CN"
+  },
+  "structuredData": {
+    "description": "集中管理 22+ AI 编程助手的 MCP 服务器、便携技能和项目配置，一套桌面应用全部搞定。"
+  },
+  "topBar": {
+    "announcement": "AGHUB {{version}} 现已发布 - 一个覆盖所有 AI 编程 AGENT 的统一中枢"
+  },
+  "nav": {
+    "features": "功能特性",
+    "docs": "文档",
+    "github": "GITHUB",
+    "download": "下载",
+    "openMenu": "打开菜单",
+    "closeMenu": "关闭菜单"
+  },
+  "hero": {
+    "eyebrow": "SKILL 与 MCP 管理",
+    "titleLine1": "一个中枢，",
+    "titleLine2": "连接所有 Agent。",
+    "description": "为 22+ AI 编程助手统一管理配置。从一个基于 Tauri 2 的桌面应用中集中维护 MCP 服务器、便携技能与项目配置。"
+  },
+  "downloads": {
+    "mac": "下载 macOS 版",
+    "windows": "下载 Windows 版",
+    "linux": "下载 Linux 版",
+    "default": "立即下载"
+  },
+  "features": {
+    "mcp": {
+      "label": "统一 MCP 管理",
+      "title": "一份配置，覆盖所有 Agent。",
+      "description": "在同一个界面里把 MCP 服务器配置分发到所有 AI 编程 Agent，再也不用为每个工具单独改 JSON。",
+      "bullets": [
+        "支持 Stdio、SSE 与 StreamableHttp 传输方式",
+        "无需删除即可随时启用或停用服务器",
+        "一次查看并审计全部 22+ Agent 的服务器配置"
+      ]
+    },
+    "skills": {
+      "label": "便携技能",
+      "title": "技能一次导入，多 Agent 通用。",
+      "description": "导入可跨 Agent 使用的 .skill 包。技能可校验、可追踪、可移植，装一次即可在所有支持的 Agent 中复用。",
+      "bullets": [
+        "用 SKILL.md frontmatter 承载完整元信息",
+        "支持 SHA-256 校验与来源追踪",
+        "可直接接入 skills.sh marketplace"
+      ]
+    },
+    "scoping": {
+      "label": "灵活作用域",
+      "title": "全局、项目，或两者并存。",
+      "description": "配置可以设在任意层级。全局默认值处处生效，项目级覆盖保持本地隔离，合并视图能让整体状态一目了然。",
+      "bullets": [
+        "支持全局、项目和合并配置视图",
+        "按 Agent 精细过滤，控制更准确",
+        "每项资源都具备完整审计轨迹"
+      ]
+    },
+    "platform": {
+      "label": "跨平台",
+      "title": "每个桌面系统都原生可用。",
+      "description": "基于 Tauri 2 构建，兼顾原生性能与轻量体积。在 Windows、macOS 和 Linux 上都能运行，无需承担 Electron 的额外开销。",
+      "bullets": [
+        "支持 Windows 10+、macOS 12+ 与主流 Linux 发行版",
+        "底层采用 Rust 与 TypeScript",
+        "轻量无 Chromium 打包负担"
+      ]
+    }
+  },
+  "supportedAgents": {
+    "ariaLabel": "支持的 Agent 轮播",
+    "title": "已支持的 Agents",
+    "count": "已支持 {{count}} 个 Agent，而且还在继续增加。一套配置，统一掌控。"
+  },
+  "footer": {
+    "tagline": "每个 AI 编程 Agent 的统一中枢。为 22+ 助手集中管理配置。",
+    "featuresTitle": "功能",
+    "featuresLinks": ["MCP 服务器", "技能注册表", "项目配置", "CLI 集成"],
+    "resourcesTitle": "资源",
+    "resourcesLinks": ["文档", "GitHub", "发布版本"],
+    "communityTitle": "社区",
+    "communityLinks": ["Discord", "GitHub Issues", "参与贡献"],
+    "copyright": "© 2025 AGHUB - MIT 许可证",
+    "builtWith": "基于 Tauri 2 构建"
+  },
+  "images": {
+    "featureScreenshotSuffix": "界面截图",
+    "placeholder": "截图",
+    "macScreenshotAlt": "macOS 截图",
+    "windowsScreenshotAlt": "Windows 截图",
+    "logoAlt": "AGHub 标志",
+    "heroLogoAlt": "AGHub 图形标志"
+  }
+}

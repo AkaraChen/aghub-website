@@ -1,38 +1,27 @@
+import Script from "next/script";
 import HomePage from "../components/home-page";
+import { getHomePageContent, getPageMetadata, getStructuredData } from "./i18n/server";
 
-const softwareApplicationJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "SoftwareApplication",
-  name: "AGHub",
-  url: "https://aghub.akr.moe/",
-  image: "https://aghub.akr.moe/og-banner.png",
-  description:
-    "Unified configuration management for 22+ AI coding assistants. Manage MCP servers, portable skills, and project configs from a single desktop app.",
-  applicationCategory: "DeveloperApplication",
-  operatingSystem: ["Windows 10+", "macOS 12+", "Linux"],
-  offers: {
-    "@type": "Offer",
-    price: "0",
-    priceCurrency: "USD",
-  },
-  author: {
-    "@type": "Organization",
-    name: "AGHub",
-    url: "https://github.com/AkaraChen/aghub",
-  },
-  sameAs: ["https://github.com/AkaraChen/aghub", "https://docs.aghub.akr.moe"],
-  downloadUrl: "https://github.com/AkaraChen/aghub?tab=readme-ov-file#download",
-  softwareVersion: "0.1.1",
-};
+export async function generateMetadata() {
+  return getPageMetadata("en");
+}
 
-export default function Page() {
+export default async function Page() {
+  const [content, structuredData] = await Promise.all([
+    getHomePageContent("en"),
+    getStructuredData("en"),
+  ]);
+
   return (
     <>
+      <Script id="locale-redirect" strategy="beforeInteractive">
+        {`(function(){try{if(window.location.pathname!=="/")return;var langs=window.navigator.languages||[window.navigator.language||""];var prefersZh=langs.some(function(lang){var value=(lang||"").toLowerCase();return value==="zh"||value.indexOf("zh-")===0;});if(prefersZh){window.location.replace("/zh-cn"+window.location.search+window.location.hash);}}catch(error){}})();`}
+      </Script>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareApplicationJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
-      <HomePage />
+      <HomePage content={content} />
     </>
   );
 }
