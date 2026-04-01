@@ -1,13 +1,18 @@
-redirectsOrigin = "config"
-plugins = []
-headers = []
+headersOrigin = "inline"
+redirectsOrigin = "inline"
 
 [functions]
 
 [functions."*"]
 
+[[plugins]]
+origin = "default"
+package = "@netlify/plugin-nextjs"
+
+[plugins.inputs]
+
 [build]
-publish = "/Users/akrc/Developer/aghub-website/apps/website/dist"
+publish = "/Users/akrc/Developer/aghub-website/apps/website/out"
 publishOrigin = "config"
 commandOrigin = "config"
 base = "/Users/akrc/Developer/aghub-website/apps/website"
@@ -28,13 +33,37 @@ NODE_VERSION = "22"
 
 [build.services]
 
+[[headers]]
+for = "/_next/static/*"
+
+[headers.values]
+Cache-Control = "public, max-age=31536000, immutable"
+
 [[redirects]]
-from = "/*"
-to = "/index.html"
+from = "/_next/image"
+to = "/.netlify/images?url=:url&w=:width&q=:quality"
 status = 200.0
 force = false
 
 [redirects.query]
+url = ":url"
+w = ":width"
+q = ":quality"
+
+[redirects.conditions]
+
+[redirects.headers]
+
+[[redirects]]
+from = "/_ipx/*"
+to = "/.netlify/images?url=:url&w=:width&q=:quality"
+status = 200.0
+force = false
+
+[redirects.query]
+url = ":url"
+w = ":width"
+q = ":quality"
 
 [redirects.conditions]
 

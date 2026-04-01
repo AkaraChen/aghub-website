@@ -3,15 +3,9 @@
 base = "apps/website"
 # Build command
 command = "pnpm run build"
-# Publish from the dist directory (relative to base)
-publish = "dist"
+# Publish from the Next.js static export directory (relative to base)
+publish = "out"
 
 [build.environment]
 # Specify Node.js version
 NODE_VERSION = "22"
-
-# Redirect all requests to index.html for SPA routing
-[[redirects]]
-from = "/*"
-to = "/index.html"
-status = 200

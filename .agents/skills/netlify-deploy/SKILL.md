@@ -13,6 +13,7 @@ This skill automates Netlify deployments by:
 
 - Verifying Netlify CLI authentication
 - Detecting project configuration and framework
+- Detecting static-exported Next.js projects and using the exported `out` directory
 - Linking to existing sites or creating new ones
 - Deploying to production or preview environments
 
@@ -21,7 +22,6 @@ This skill automates Netlify deployments by:
 - **Netlify CLI**: Installed via npx (no global install required)
 - **Authentication**: Netlify account with active login session
 - **Project**: Valid web project in current directory
-- When sandboxing blocks the deployment network calls, rerun with `sandbox_permissions=require_escalated`.
 - The deployment might take a few minutes. Use appropriate timeout values.
 
 ## Authentication Pattern
@@ -113,12 +113,11 @@ This guides user through:
 Before deploying, ensure project dependencies are installed:
 
 ```bash
-# For npm projects
-npm install
-
-# For other package managers, detect and use appropriate command
-# yarn install, pnpm install, etc.
+# Prefer the repo's toolchain wrapper when available
+vp install
 ```
+
+If the repo does not use Vite+, detect the package manager and install dependencies with the project-native command.
 
 ### 5. Deploy to Netlify
 
@@ -147,6 +146,17 @@ This deploys to the live production URL.
 3. Uploads built assets to Netlify
 4. Returns deployment URL
 
+### Next.js Static Export Pattern
+
+When the project uses Next.js with `output: "export"`:
+
+- Use `next build` or the package script that wraps it as the build command
+- Publish the generated `out` directory
+- Do not configure a blanket SPA redirect to `/index.html`
+- Keep the site fully static; avoid `next start` and server-runtime assumptions
+
+For monorepos, respect any configured base directory and keep `publish = "out"` relative to that base.
+
 ### 6. Report Results
 
 After deployment, report to user:
@@ -165,7 +175,8 @@ If a `netlify.toml` file exists, the CLI uses it automatically. If not, the CLI 
 
 Common framework defaults:
 
-- **Next.js**: build command `npm run build`, publish `.next`
+- **Next.js (static export)**: build command `npm run build`, publish `out`
+- **Next.js (server runtime)**: build command `npm run build`, publish `.next`
 - **React (Vite)**: build command `npm run build`, publish `dist`
 - **Static HTML**: no build command, publish current directory
 
@@ -189,7 +200,7 @@ npx netlify link --git-remote-url https://github.com/user/repo
 npx netlify init
 
 # 3. Install dependencies
-npm install
+vp install
 
 # 4. Deploy (preview for testing)
 npx netlify deploy
@@ -215,19 +226,7 @@ Common issues and solutions:
 
 **"Publish directory not found"**
 → Verify build command ran successfully
-→ Check publish directory path is correct
-
-## Troubleshooting
-
-### Escalated Network Access
-
-If deployment fails due to network issues (timeouts, DNS errors, connection resets), rerun the deploy with escalated permissions (use `sandbox_permissions=require_escalated`). The deploy requires escalated network access when sandbox networking blocks outbound requests.
-
-Example guidance to the user:
-
-```
-The deploy needs escalated network access to deploy to Netlify. I can rerun the command with escalated permissions—want me to proceed?
-```
+→ Check publish directory path is correct (`out` for Next.js static export, `dist` for Vite)
 
 ## Environment Variables
 

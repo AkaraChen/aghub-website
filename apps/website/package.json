@@ -4,23 +4,23 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vp dev",
-    "build": "vp build",
-    "preview": "vp preview"
+    "dev": "next dev",
+    "build": "next build",
+    "preview": "vp dlx serve out"
   },
   "dependencies": {
-    "@tailwindcss/vite": "catalog:",
+    "@fontsource/instrument-serif": "catalog:",
+    "@fontsource/inter": "catalog:",
+    "@tailwindcss/postcss": "catalog:",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
-    "@vitejs/plugin-react": "catalog:",
+    "next": "catalog:",
     "react": "catalog:",
     "react-dom": "catalog:",
-    "react-grab": "catalog:",
     "tailwindcss": "catalog:"
   },
   "devDependencies": {
     "typescript": "~5.9.3",
-    "vite": "catalog:",
     "vite-plus": "catalog:"
   }
 }

@@ -3,4 +3,4 @@ User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: https://aghub.ai/sitemap.xml
+Sitemap: https://aghub.akr.moe/sitemap.xml
